@@ -1,21 +1,33 @@
-function Modal(prop1, taskId){
+import { useState } from "react"
 
-    let valueInput = ''
-    
-    function saveInput(value){
-        valueInput = value
+function Modal({modifyTask, toggleModal, mouseOver, mouseOut}){
+    const [valueInput, setValueInput] = useState('')
+    function handleInput(value){
+        setValueInput(value)
     }
-
-    function handleInput(){
-        prop1.handleModify(valueInput, taskId)
-
-        valueInput = ''
+    function handleSubmit(){
+        if(valueInput !== ''){
+            modifyTask(valueInput)
+            handleInput('')
+        }
     }
 
     return(
-        <div>
-            <input onChange={event => saveInput(event.target.value)}/>
-            <button onClick={() => handleInput()}>ok</button>
+        <div id="container-modal">
+            <div id="fundo-modal" onClick={() => toggleModal()}></div>
+            <div className="fundo" id="modal">
+                <div className="over-fundo">
+                    <input className="input" onChange={event => handleInput(event.target.value)} autoFocus placeholder="Edit task" onKeyDown={(e) => {
+                            if(e.key === 'Enter'){
+                                handleSubmit()
+                            }
+                        }}
+                    />
+                    <box-icon onClick={() => handleSubmit()} className="btn" name="check" color="var(--bg-btn)" size="md"
+                        onMouseOver={(e) => mouseOver(e.target)} onMouseOut={(e) => mouseOut(e.target)}>
+                    </box-icon>
+                </div>
+            </div>
         </div>
     )
 }
