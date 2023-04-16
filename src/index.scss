@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$bg: #d7f4f2;
+$bg-over: #e8f3f2;
+$bg-bottom: #a5f7f4;
+$bg-details: #3f8981;
+$font: 'Space Mono';
+
+:root{
+    --bg-btn: #3f8981;
+}
+
+*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Mono'; font-weight: bold;
+}
+
+@mixin theme($background){
+    background-color: $background;
+    color: $bg-details;
+    border: 5px solid $bg-details;
+}
+
+@mixin flex($direction, $justify, $align){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin measurements($width, $height){
+    width: $width;
+    height: $height;
+}
+
+.container{
+    @include measurements(100vw, 100vh);
+    @include flex(column, center, center);
+    background-color: $bg;
+    overflow-y: auto;
+    position: relative;
+}
+
+.container::-webkit-scrollbar {
+  width: 6px;              
+}
+
+.container::-webkit-scrollbar-track {
+  background-color: $bg;     
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: $bg-details;     
+}
+
+.over-fundo{
+    @include measurements(100%, 100%);
+    @include flex(column, center, center);
+    @include theme($bg-over);
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+    h1{
+        font-size: 1.8em
+    }
+}
+
+.fundo{
+    @include measurements(60vw, 100px);
+    @include theme($bg-bottom);
+    margin-top: 32px;
+    position: relative;
+}
+
+#fundo-menu{
+    position: sticky;
+    top:20px;
+    z-index: 2;
+    height: 200px !important;
+}
+
+#menu{
+    height: 200px !important;
+}
+
+.container-input{
+    @include measurements(95%, 50px);
+    @include flex(row, space-around, center);
+}
+
+.input{
+    @include theme($bg-over);
+    @include measurements(90%, 100%);
+    outline: none;
+    font-weight: bold;
+    padding-left: 20px
+}
+
+.input::placeholder{
+    color: $bg-details;
+    opacity: 35%;
+}
+
+.container-tasks{
+    @include measurements(60vw, 500px);
+}
+
+.task{
+    @include measurements(90%, 100%);
+    @include flex(row, space-between, center);
+
+    p{
+        font-size: 1.1em
+    }
+}
+
+.taskName{
+    @include measurements(80%, initial);
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+#container-modal{
+    @include measurements(100vw, 100vh);
+    @include flex(row, center, center);
+    position: absolute;
+}
+
+#fundo-modal{
+    @include measurements(100vw, 100vh);
+    background-color: rgba(0, 0, 0, 0.685);
+    position: absolute;
+    z-index: 3;
+}
+
+#modal{
+   @include measurements(600px, 150px);
+   z-index: 4;
+
+   .input{
+        @include measurements(90%, 50px) 
+   }
+}
+
+@media all and (max-width: 650px){
+    #modal{
+        width: 80%;
+    }
+    .container-input{
+        input{
+            width: 85%;
+        }   
+    }
+}
+
+@media all and (max-width: 500px){
+    .fundo, .container-tasks{
+        width: 85vw;
+    }
+}
